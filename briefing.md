@@ -1,0 +1,6 @@
+- Qual o problema desse sistema?
+- Quem são os usuários?
+- Quais são os objetos principais?
+- Tem alguma regra de negócio explícita?
+- Tem alguma regra de negócio implícita, que não está escrita, mas faz sentido?
+- Quais são as ações principais?
