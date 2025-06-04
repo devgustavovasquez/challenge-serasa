@@ -1,0 +1,21 @@
+{
+  "name": "challenge-serasa",
+  "version": "1.0.0",
+  "description": "System to manage farmers and their properties",
+  "main": "index.js",
+  "engines": {
+    "node": ">=22.12",
+    "pnpm": ">=10.8"
+  },
+  "scripts": {
+    "dev": "tsx watch src/index.ts"
+  },
+  "keywords": [],
+  "author": "Gustavo Vasquez <gustavovasquez2002@gmail.com>",
+  "license": "ISC",
+  "packageManager": "pnpm@10.8.1",
+  "devDependencies": {
+    "tsx": "^4.19.4",
+    "typescript": "^5.8.3"
+  }
+}
