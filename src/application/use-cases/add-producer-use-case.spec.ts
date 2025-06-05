@@ -1,16 +1,22 @@
-import { vi } from "vitest";
+import { Mock, vi } from "vitest";
 
 import { Producer } from "src/domain/entities/producer";
 import { ProducerRepository } from "../repositories/producer-repository";
 import { AddProducerUseCase } from "./add-producer-use-case";
 
 describe("AddProducerUseCase", () => {
-  let producerRepository: ProducerRepository;
+  let producerRepository: {
+    create: Mock;
+  };
   let sut: AddProducerUseCase;
 
   beforeEach(() => {
-    producerRepository = { create: vi.fn() } as unknown as ProducerRepository;
-    sut = new AddProducerUseCase(producerRepository);
+    producerRepository = {
+      create: vi.fn().mockResolvedValue(undefined),
+    };
+    sut = new AddProducerUseCase(
+      producerRepository as unknown as ProducerRepository,
+    );
   });
 
   it("should add a producer", async () => {
