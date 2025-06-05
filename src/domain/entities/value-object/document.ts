@@ -1,4 +1,4 @@
-import { DocumentValidator } from "src/shared/validators/document-validator";
+import { DocumentValidator } from "../../validators/document-validator";
 
 export class Document {
   private readonly _value: string;

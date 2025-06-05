@@ -1,4 +1,4 @@
-import { UFS } from "src/shared/contants/ufs";
+import { UFS } from "../../enums/ufs";
 
 export type AddressProps = {
   city: string;
