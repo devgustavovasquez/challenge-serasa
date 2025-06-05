@@ -23,8 +23,6 @@ describe("AddProducerUseCase", () => {
     const input = {
       name: "any_name",
       document: "589.491.301-22",
-      state: "DF",
-      city: "any_city",
     };
 
     const producer = await sut.execute(input);
@@ -41,8 +39,6 @@ describe("AddProducerUseCase", () => {
     const input = {
       name: "any_name",
       document: "27.865.757/0001-02",
-      state: "DF",
-      city: "any_city",
     };
 
     const producer = await sut.execute(input);
@@ -59,8 +55,6 @@ describe("AddProducerUseCase", () => {
     const input = {
       name: "",
       document: "589.491.301-22",
-      state: "DF",
-      city: "any_city",
     };
 
     await expect(sut.execute(input)).rejects.toThrow(
@@ -72,25 +66,10 @@ describe("AddProducerUseCase", () => {
     const input = {
       name: "any_name",
       document: "any_document",
-      state: "DF",
-      city: "any_city",
     };
 
     await expect(sut.execute(input)).rejects.toThrow(
       new Error("Invalid Document"),
-    );
-  });
-
-  it("should throw an error if producer state is invalid", async () => {
-    const input = {
-      name: "any_name",
-      document: "589.491.301-22",
-      state: "any_state",
-      city: "any_city",
-    };
-
-    await expect(sut.execute(input)).rejects.toThrow(
-      new Error("State is invalid or missing"),
     );
   });
 
@@ -100,8 +79,6 @@ describe("AddProducerUseCase", () => {
     const input = {
       name: "any_name",
       document: "589.491.301-22",
-      state: "DF",
-      city: "any_city",
     };
 
     await expect(sut.execute(input)).rejects.toThrow(new Error("any_error"));

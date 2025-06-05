@@ -19,16 +19,12 @@ describe("UpdateProducerUseCase", () => {
       id: producer.id,
       name: "any_name",
       document: "589.491.301-22",
-      state: "DF",
-      city: "any_city",
     };
 
     await sut.execute(input);
 
     expect(producerRepository.producers[0].name).toBe("any_name");
     expect(producerRepository.producers[0].document.value).toBe("58949130122");
-    expect(producerRepository.producers[0].address.city).toBe("any_city");
-    expect(producerRepository.producers[0].address.state).toBe("DF");
     expect(producerRepository.producers[0].updatedAt).toBeInstanceOf(Date);
     expect(producerRepository.producers[0].createdAt).toBe(producer.createdAt);
   });

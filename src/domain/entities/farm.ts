@@ -1,26 +1,30 @@
 import { randomUUID } from "node:crypto";
 import { Optional } from "../../utils/optional";
-import { Document } from "./value-object/document";
+import { Address } from "./value-object/address";
 
-export type ProducerProps = {
+export type FarmProps = {
   id: string;
+  producerId: string;
   name: string;
-  document: Document;
+  address: Address;
+  totalArea: number;
+  cultivatedArea: number;
+  vegetationArea: number;
   createdAt: Date;
   updatedAt?: Date;
 };
 
-export class Producer {
-  private constructor(private readonly props: ProducerProps) {
+export class Farm {
+  private constructor(private readonly props: FarmProps) {
     this.validateName(props.name);
     this.props = props;
   }
 
   static create(
-    props: Optional<Omit<ProducerProps, "id">, "createdAt">,
+    props: Optional<Omit<FarmProps, "id">, "createdAt">,
     id?: string,
   ) {
-    return new Producer({
+    return new Farm({
       ...props,
       id: id ?? randomUUID(),
       createdAt: props.createdAt ?? new Date(),
@@ -31,12 +35,28 @@ export class Producer {
     return this.props.id;
   }
 
-  get document() {
-    return this.props.document;
+  get producerId() {
+    return this.props.producerId;
   }
 
   get name() {
     return this.props.name;
+  }
+
+  get address() {
+    return this.props.address;
+  }
+
+  get totalArea() {
+    return this.props.totalArea;
+  }
+
+  get cultivatedArea() {
+    return this.props.cultivatedArea;
+  }
+
+  get vegetationArea() {
+    return this.props.vegetationArea;
   }
 
   get createdAt() {
