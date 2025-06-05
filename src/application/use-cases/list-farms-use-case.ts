@@ -1,0 +1,15 @@
+import { Farm } from "src/domain/entities/farm";
+import { PaginatedResult, PaginationParams } from "../repositories/base";
+import { FarmRepository } from "../repositories/farm-repository";
+
+export type ListFarmsInput = PaginationParams;
+
+export type ListFarmsOutput = PaginatedResult<Farm>;
+
+export class ListFarmsUseCase {
+  constructor(private farmRepository: FarmRepository) {}
+
+  async execute(input: ListFarmsInput): Promise<ListFarmsOutput> {
+    return await this.farmRepository.findAll(input);
+  }
+}
