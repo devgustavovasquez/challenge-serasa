@@ -16,6 +16,11 @@ export type FarmProps = {
 
 export class Farm {
   private constructor(private readonly props: FarmProps) {
+    this.validateAreas(
+      props.totalArea,
+      props.cultivatedArea,
+      props.vegetationArea,
+    );
     this.validateName(props.name);
     this.props = props;
   }
@@ -70,6 +75,28 @@ export class Farm {
   private validateName(name: string) {
     if (!name || name.trim().length < 2) {
       throw new Error("Name is required and must be at least 2 characters");
+    }
+  }
+
+  private validateAreas(
+    totalArea: number,
+    cultivatedArea: number,
+    vegetationArea: number,
+  ) {
+    if (totalArea <= 0) {
+      throw new Error("Total area must be greater than 0");
+    }
+
+    if (Math.sign(cultivatedArea) < 0) {
+      throw new Error("Cultivated area must be greater or equal to 0");
+    }
+
+    if (Math.sign(vegetationArea) < 0) {
+      throw new Error("Vegetation area must be greater or equal to 0");
+    }
+
+    if (totalArea < cultivatedArea + vegetationArea) {
+      throw new Error("Total area must be greater than cultivated area");
     }
   }
 }
