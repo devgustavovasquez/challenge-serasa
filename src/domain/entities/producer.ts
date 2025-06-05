@@ -1,6 +1,7 @@
 import { randomUUID } from "node:crypto";
-import { Document } from "./value-object/document";
+import { Optional } from "../../utils/optional";
 import { Address } from "./value-object/address";
+import { Document } from "./value-object/document";
 
 export type ProducerProps = {
   id: string;
@@ -18,11 +19,14 @@ export class Producer {
     this.props = props;
   }
 
-  static create(props: Omit<ProducerProps, "id" | "createdAt">) {
+  static create(
+    props: Optional<Omit<ProducerProps, "id">, "createdAt">,
+    id?: string,
+  ) {
     return new Producer({
       ...props,
-      id: randomUUID(),
-      createdAt: new Date(),
+      id: id ?? randomUUID(),
+      createdAt: props.createdAt ?? new Date(),
     });
   }
 
@@ -44,6 +48,14 @@ export class Producer {
 
   get address() {
     return this.props.address;
+  }
+
+  get createdAt() {
+    return this.props.createdAt;
+  }
+
+  get updatedAt() {
+    return this.props.updatedAt;
   }
 
   private validateName(name: string) {
