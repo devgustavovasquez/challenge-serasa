@@ -8,7 +8,7 @@ export type HarvestProps = {
   crops: Crop[];
   year: number;
   createdAt: Date;
-  updatedAt: Date;
+  updatedAt?: Date;
 };
 
 export class Harvest {
