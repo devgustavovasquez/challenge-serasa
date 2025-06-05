@@ -1,8 +1,4 @@
 import { Harvest } from "src/domain/entities/harvest";
+import { BaseRepository } from "./base";
 
-export abstract class HarvestRepository {
-  abstract create(harvest: Harvest): Promise<void>;
-  abstract findById(id: string): Promise<Harvest | null>;
-  abstract update(harvest: Harvest): Promise<void>;
-  abstract delete(id: string): Promise<void>;
-}
+export abstract class HarvestRepository extends BaseRepository<Harvest> {}

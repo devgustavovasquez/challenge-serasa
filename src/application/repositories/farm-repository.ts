@@ -1,8 +1,4 @@
 import { Farm } from "src/domain/entities/farm";
+import { BaseRepository } from "./base";
 
-export abstract class FarmRepository {
-  abstract create(farm: Farm): Promise<void>;
-  abstract findById(id: string): Promise<Farm | null>;
-  abstract update(farm: Farm): Promise<void>;
-  abstract delete(id: string): Promise<void>;
-}
+export abstract class FarmRepository extends BaseRepository<Farm> {}
