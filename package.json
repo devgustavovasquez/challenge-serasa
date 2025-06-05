@@ -11,7 +11,9 @@
     "dev": "tsx watch src/index.ts",
     "test": "vitest run",
     "test:dev": "vitest dev",
-    "test:cov": "vitest run --coverage"
+    "test:cov": "vitest run --coverage",
+    "lint": "eslint",
+    "lint:fix": "eslint --fix"
   },
   "keywords": [],
   "author": "Gustavo Vasquez <gustavovasquez2002@gmail.com>",

@@ -1,14 +1,15 @@
 import { vi } from "vitest";
 
 import { Producer } from "src/domain/entities/producer";
+import { ProducerRepository } from "../repositories/producer-repository";
 import { AddProducerUseCase } from "./add-producer-use-case";
 
 describe("AddProducerUseCase", () => {
-  let producerRepository: any;
+  let producerRepository: ProducerRepository;
   let sut: AddProducerUseCase;
 
   beforeEach(() => {
-    producerRepository = { create: vi.fn() };
+    producerRepository = { create: vi.fn() } as unknown as ProducerRepository;
     sut = new AddProducerUseCase(producerRepository);
   });
 
@@ -25,7 +26,7 @@ describe("AddProducerUseCase", () => {
     expect(producer).toBeInstanceOf(Producer);
     expect(producer.id).toBeDefined();
     expect(producerRepository.create).toHaveBeenCalledWith(
-      expect.any(Producer)
+      expect.any(Producer),
     );
     expect(producerRepository.create).toHaveBeenCalledTimes(1);
   });
@@ -43,7 +44,7 @@ describe("AddProducerUseCase", () => {
     expect(producer).toBeInstanceOf(Producer);
     expect(producer.id).toBeDefined();
     expect(producerRepository.create).toHaveBeenCalledWith(
-      expect.any(Producer)
+      expect.any(Producer),
     );
     expect(producerRepository.create).toHaveBeenCalledTimes(1);
   });
@@ -56,7 +57,9 @@ describe("AddProducerUseCase", () => {
       city: "any_city",
     };
 
-    await expect(sut.execute(input)).rejects.toThrow(new Error("Name is required and must be at least 2 characters"));
+    await expect(sut.execute(input)).rejects.toThrow(
+      new Error("Name is required and must be at least 2 characters"),
+    );
   });
 
   it("should throw an error if producer document is invalid", async () => {
@@ -67,7 +70,9 @@ describe("AddProducerUseCase", () => {
       city: "any_city",
     };
 
-    await expect(sut.execute(input)).rejects.toThrow(new Error("Invalid Document"));
+    await expect(sut.execute(input)).rejects.toThrow(
+      new Error("Invalid Document"),
+    );
   });
 
   it("should throw an error if producer state is invalid", async () => {
@@ -78,7 +83,9 @@ describe("AddProducerUseCase", () => {
       city: "any_city",
     };
 
-    await expect(sut.execute(input)).rejects.toThrow(new Error("State is invalid or missing"));
+    await expect(sut.execute(input)).rejects.toThrow(
+      new Error("State is invalid or missing"),
+    );
   });
 
   it("should throw an error if producer repository throws", async () => {
@@ -93,6 +100,4 @@ describe("AddProducerUseCase", () => {
 
     await expect(sut.execute(input)).rejects.toThrow(new Error("any_error"));
   });
-
-
 });

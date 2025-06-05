@@ -11,7 +11,7 @@ export class Document {
     const cleaned = DocumentValidator.format(value);
 
     if (!DocumentValidator.isValid(cleaned)) {
-      throw new Error('Invalid Document');
+      throw new Error("Invalid Document");
     }
 
     return new Document(cleaned);
@@ -36,19 +36,16 @@ export class Document {
   }
 
   private formatCpf(cpf: string) {
-    return cpf.replace(
-      /^(\d{3})(\d{3})(\d{3})(\d{2})$/,
-      '$1.$2.$3-$4',
-    );
+    return cpf.replace(/^(\d{3})(\d{3})(\d{3})(\d{2})$/, "$1.$2.$3-$4");
   }
 
   private formatCnpj(cnpj: string) {
     return cnpj.replace(
       /^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})$/,
-      '$1.$2.$3/$4-$5',
+      "$1.$2.$3/$4-$5",
     );
   }
-  
+
   equals(other: Document) {
     return this._value === other._value;
   }

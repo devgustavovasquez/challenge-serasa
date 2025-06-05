@@ -1,6 +1,6 @@
-import { randomUUID } from 'node:crypto';
-import { Document } from './value-object/document';
-import { Address } from './value-object/address';
+import { randomUUID } from "node:crypto";
+import { Document } from "./value-object/document";
+import { Address } from "./value-object/address";
 
 export type ProducerProps = {
   id: string;
@@ -18,7 +18,7 @@ export class Producer {
     this.props = props;
   }
 
-  static create(props: Omit<ProducerProps, 'id' | 'createdAt'>) {   
+  static create(props: Omit<ProducerProps, "id" | "createdAt">) {
     return new Producer({
       ...props,
       id: randomUUID(),
@@ -48,7 +48,7 @@ export class Producer {
 
   private validateName(name: string) {
     if (!name || name.trim().length < 2) {
-      throw new Error('Name is required and must be at least 2 characters');
+      throw new Error("Name is required and must be at least 2 characters");
     }
-  } 
+  }
 }

@@ -1,7 +1,7 @@
-import { defineConfig } from 'vitest/config'
+import { defineConfig } from "vitest/config";
 
 export default defineConfig({
-    test: {
+  test: {
     root: "./",
     globals: true,
     isolate: false,
@@ -13,5 +13,5 @@ export default defineConfig({
       reportsDirectory: "coverage",
       include: ["src/**/*.ts"],
     },
-  }
-})
+  },
+});

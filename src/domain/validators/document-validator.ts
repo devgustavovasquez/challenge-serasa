@@ -1,6 +1,6 @@
 export class DocumentValidator {
   static isValid(document: string): boolean {
-    const cleaned = document.replace(/\D/g, '');
+    const cleaned = document.replace(/\D/g, "");
 
     if (cleaned.length === 11) {
       return this.isValidCPF(cleaned);
@@ -19,12 +19,12 @@ export class DocumentValidator {
 
     const calcCheck = (factor: number) =>
       cpf
-        .split('')
+        .split("")
         .slice(0, factor - 1)
         .reduce((acc, curr, idx) => acc + Number(curr) * (factor - idx), 0);
 
-    const digit1 = (calcCheck(10) * 10) % 11 % 10;
-    const digit2 = (calcCheck(11) * 10) % 11 % 10;
+    const digit1 = ((calcCheck(10) * 10) % 11) % 10;
+    const digit2 = ((calcCheck(11) * 10) % 11) % 10;
 
     return digit1 === Number(cpf[9]) && digit2 === Number(cpf[10]);
   }
@@ -35,7 +35,7 @@ export class DocumentValidator {
 
     const calcCheck = (base: string, weights: number[]) =>
       base
-        .split('')
+        .split("")
         .reduce((acc, num, idx) => acc + Number(num) * weights[idx], 0);
 
     const weights1 = [5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2];
@@ -51,6 +51,6 @@ export class DocumentValidator {
   }
 
   static format(document: string): string {
-    return document.replace(/\D/g, '');
+    return document.replace(/\D/g, "");
   }
 }
