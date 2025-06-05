@@ -27,7 +27,7 @@
 | **T23** | API Documentation              | Gerar documentação Swagger (OpenAPI) com exemplos de payloads                                   | Infrastructure | Alta       |        |
 | **T24** | Logs e Observabilidade         | Implementar logs estruturados, middlewares de request/response e error handling                 | Cross          | Alta       |        |
 | **T25** | Testes Unitários - Domain      | Criar testes unitários para entidades e regras de negócio (CPF, Área)                           | Teste          | Alta       |   OK   |
-| **T26** | Testes Unitários - Use Cases   | Criar testes unitários para os principais use cases                                             | Teste          | Alta       |        |
+| **T26** | Testes Unitários - Use Cases   | Criar testes unitários para os principais use cases                                             | Teste          | Alta       |   OK   |
 | **T27** | Testes de Integração           | Criar testes de integração dos endpoints com banco                                              | Teste          | Média      |        |
 | **T28** | CI Local                       | Configurar CI/CD local com Docker, Docker Compose e GitHub Actions                              | DevOps         | Média      |        |
 | **T29** | Readme e Setup                 | Criar README explicando setup, arquitetura e uso da API                                         | Documentação   | Alta       |        |
