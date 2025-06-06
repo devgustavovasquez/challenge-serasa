@@ -7,3 +7,69 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model Producer {
+  id        String    @id @default(uuid())
+  name      String
+  document  String    @unique
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime? @map("updated_at")
+  Farm      Farm[]
+
+  @@map("producers")
+}
+
+model Farm {
+  id             String    @id @default(uuid())
+  name           String
+  totalArea      Float     @map("total_area")
+  cultivatedArea Float     @map("cultivated_area")
+  vegetationArea Float     @map("vegetation_area")
+  createdAt      DateTime  @default(now()) @map("created_at")
+  updatedAt      DateTime? @map("updated_at")
+
+  producer   Producer  @relation(fields: [producerId], references: [id])
+  producerId String    @map("producer_id")
+  address    Address   @relation(fields: [addressId], references: [id], onDelete: Cascade)
+  addressId  String    @unique @map("address_id")
+  Harvest    Harvest[]
+
+  @@map("farms")
+}
+
+model Address {
+  id        String    @id @default(uuid())
+  city      String
+  state     String
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime? @map("updated_at")
+
+  farm Farm?
+
+  @@map("addresses")
+}
+
+model Harvest {
+  id        String    @id @default(uuid())
+  year      Int
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime? @map("updated_at")
+
+  farm   Farm   @relation(fields: [farmId], references: [id], onDelete: NoAction)
+  farmId String
+  Crop   Crop[]
+
+  @@map("harvests")
+}
+
+model Crop {
+  id         String @id @default(uuid())
+  slug       String @unique
+  name       String
+  production Float
+
+  harvest   Harvest @relation(fields: [harvestId], references: [id], onDelete: Cascade)
+  harvestId String
+
+  @@map("crops")
+}
