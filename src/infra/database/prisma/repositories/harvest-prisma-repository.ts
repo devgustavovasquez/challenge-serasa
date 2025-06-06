@@ -1,3 +1,4 @@
+import { Injectable } from "@nestjs/common";
 import { Prisma } from "@prisma/client";
 import {
   PaginatedResult,
@@ -8,6 +9,7 @@ import { Harvest } from "src/domain/entities/harvest";
 import { HarvestPrismaMapper } from "../mappers/harvest-prisma-mapper";
 import { PrismaService } from "../prisma.service";
 
+@Injectable()
 export class PrismaHarvestRepository extends HarvestRepository {
   constructor(private readonly prisma: PrismaService) {
     super();
