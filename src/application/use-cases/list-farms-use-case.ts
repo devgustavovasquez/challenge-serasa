@@ -2,7 +2,7 @@ import { Farm } from "src/domain/entities/farm";
 import { PaginatedResult, PaginationParams } from "../repositories/base";
 import { FarmRepository } from "../repositories/farm-repository";
 
-export type ListFarmsInput = PaginationParams;
+export type ListFarmsInput = PaginationParams<unknown, unknown>;
 
 export type ListFarmsOutput = PaginatedResult<Farm>;
 

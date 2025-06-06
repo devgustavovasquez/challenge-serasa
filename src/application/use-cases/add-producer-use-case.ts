@@ -1,3 +1,4 @@
+import { Injectable } from "@nestjs/common";
 import { Producer } from "src/domain/entities/producer";
 import { Document } from "src/domain/entities/value-object/document";
 import { ProducerRepository } from "../repositories/producer-repository";
@@ -9,6 +10,7 @@ export type AddProducerInput = {
 
 export type AddProducerOutput = Producer;
 
+@Injectable()
 export class AddProducerUseCase {
   constructor(private producerRepository: ProducerRepository) {}
 

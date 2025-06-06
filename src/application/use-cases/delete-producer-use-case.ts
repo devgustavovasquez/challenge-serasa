@@ -1,3 +1,4 @@
+import { Injectable } from "@nestjs/common";
 import { ProducerRepository } from "../repositories/producer-repository";
 
 export type DeleteProducerInput = {
@@ -6,6 +7,7 @@ export type DeleteProducerInput = {
 
 export type DeleteProducerOutput = void;
 
+@Injectable()
 export class DeleteProducerUseCase {
   constructor(private producerRepository: ProducerRepository) {}
 
