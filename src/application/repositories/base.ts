@@ -1,8 +1,8 @@
-export type PaginationParams = {
+export type PaginationParams<Where, OrderBy> = {
   page?: number;
   perPage?: number;
-  where?: unknown;
-  orderBy?: unknown;
+  where?: Where;
+  orderBy?: OrderBy;
 };
 
 export type PaginatedResult<T> = {
@@ -18,7 +18,9 @@ export type PaginatedResult<T> = {
 export abstract class BaseRepository<T> {
   abstract create(data: T): Promise<T>;
   abstract findById(id: string): Promise<T | null>;
-  abstract findAll(params?: PaginationParams): Promise<PaginatedResult<T>>;
+  abstract findAll(
+    params?: PaginationParams<unknown, unknown>,
+  ): Promise<PaginatedResult<T>>;
   abstract update(data: T): Promise<void>;
   abstract delete(id: string): Promise<void>;
 }
