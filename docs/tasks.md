@@ -20,9 +20,9 @@
 | **T16** | Validação de CPF/CNPJ          | Implementar validação robusta de CPF/CNPJ no cadastro de produtores                             | Domain         | Alta       |   OK   |
 | **T17** | Validação de Área              | Implementar regra: Área Agricultável + Área Vegetação = Área Total                              | Domain         | Alta       |   OK   |
 | **T18** | API - Produtor                 | Implementar endpoints REST para CRUD de produtores                                              | Infrastructure | Alta       |   OK   |
-| **T19** | API - Fazenda                  | Implementar endpoints REST para CRUD de fazendas                                                | Infrastructure | Alta       |        |
-| **T20** | API - Safra                    | Implementar endpoints REST para CRUD de safras                                                  | Infrastructure | Média      |        |
-| **T21** | API - Cultura                  | Implementar endpoints REST para CRUD de culturas                                                | Infrastructure | Média      |        |
+| **T19** | API - Fazenda                  | Implementar endpoints REST para CRUD de fazendas                                                | Infrastructure | Alta       |   OK   |
+| **T20** | API - Safra                    | Implementar endpoints REST para CRUD de safras                                                  | Infrastructure | Média      |   OK   |
+| **T21** | API - Cultura                  | Implementar endpoints REST para CRUD de culturas                                                | Infrastructure | Média      |   OK   |
 | **T22** | API - Dashboard                | Endpoint para dashboard: total de fazendas, hectares, filtros por estado, cultura e uso do solo | Infrastructure | Alta       |        |
 | **T23** | API Documentation              | Gerar documentação Swagger (OpenAPI) com exemplos de payloads                                   | Infrastructure | Alta       |        |
 | **T24** | Logs e Observabilidade         | Implementar logs estruturados, middlewares de request/response e error handling                 | Cross          | Alta       |        |
