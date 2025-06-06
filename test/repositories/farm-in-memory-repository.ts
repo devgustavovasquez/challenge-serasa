@@ -17,7 +17,9 @@ export class FarmInMemoryRepository implements FarmRepository {
     return this.farms.find((farm) => farm.id === id) ?? null;
   }
 
-  async findAll(params: PaginationParams): Promise<PaginatedResult<Farm>> {
+  async findAll(
+    params: PaginationParams<unknown, unknown>,
+  ): Promise<PaginatedResult<Farm>> {
     const { page = 1, perPage = 10, orderBy, where } = params;
 
     let filteredFarms = [...this.farms];

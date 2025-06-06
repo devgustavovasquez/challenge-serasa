@@ -17,7 +17,9 @@ export class ProducerInMemoryRepository implements ProducerRepository {
     return this.producers.find((producer) => producer.id === id) ?? null;
   }
 
-  async findAll(params: PaginationParams): Promise<PaginatedResult<Producer>> {
+  async findAll(
+    params: PaginationParams<unknown, unknown>,
+  ): Promise<PaginatedResult<Producer>> {
     const { page = 1, perPage = 10, orderBy, where } = params;
 
     let filteredProducers = [...this.producers];
