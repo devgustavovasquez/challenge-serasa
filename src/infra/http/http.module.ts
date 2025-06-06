@@ -9,6 +9,7 @@ import { ListProducersUseCase } from "src/application/use-cases/list-producers-u
 import { UpdateFarmUseCase } from "src/application/use-cases/update-farm-use-case";
 import { UpdateProducerUseCase } from "src/application/use-cases/update-producer-use-case";
 import { DatabaseModule } from "../database/database.module";
+import { DashboardController } from "./controllers/dashboard.controller";
 import { FarmController } from "./controllers/farm.controller";
 import { HarvestController } from "./controllers/harvest.controller";
 import { ProducerController } from "./controllers/producer.controller";
@@ -26,6 +27,11 @@ import { ProducerController } from "./controllers/producer.controller";
     UpdateFarmUseCase,
     AddHarvestUseCase,
   ],
-  controllers: [ProducerController, FarmController, HarvestController],
+  controllers: [
+    ProducerController,
+    FarmController,
+    HarvestController,
+    DashboardController,
+  ],
 })
 export class HttpModule {}
