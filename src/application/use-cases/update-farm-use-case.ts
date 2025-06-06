@@ -1,3 +1,4 @@
+import { Injectable } from "@nestjs/common";
 import { Farm } from "src/domain/entities/farm";
 import { Address } from "src/domain/entities/value-object/address";
 import { FarmRepository } from "../repositories/farm-repository";
@@ -16,6 +17,7 @@ export type UpdateFarmInput = {
 
 export type UpdateFarmOutput = void;
 
+@Injectable()
 export class UpdateFarmUseCase {
   constructor(
     private farmRepository: FarmRepository,

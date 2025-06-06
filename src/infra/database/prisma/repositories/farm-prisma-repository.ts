@@ -1,3 +1,4 @@
+import { Injectable } from "@nestjs/common";
 import { Prisma } from "@prisma/client";
 import {
   PaginatedResult,
@@ -9,6 +10,7 @@ import { AddressPrismaMapper } from "../mappers/address-prisma-mapper";
 import { FarmPrismaMapper } from "../mappers/farm-prisma-mapper";
 import { PrismaService } from "../prisma.service";
 
+@Injectable()
 export class PrismaFarmRepository extends FarmRepository {
   constructor(private readonly prisma: PrismaService) {
     super();
