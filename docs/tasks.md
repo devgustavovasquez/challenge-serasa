@@ -4,7 +4,7 @@
 | ------- | ------------------------------ | ----------------------------------------------------------------------------------------------- | -------------- | ---------- | ------ |
 | **T01** | Setup do Projeto               | Configurar projeto Node.js + TypeScript + NestJS com ESLint, Prettier e Husky                   | Setup          | Alta       |   OK   |        
 | **T02** | Setup do Docker                | Criar dockerfile, docker-compose com PostgreSQL e configuração de volumes                       | Setup          | Alta       |        |
-| **T03** | Configuração do ORM            | Instalar e configurar Prisma (ou TypeORM) com conexão ao PostgreSQL                             | Setup          | Alta       |        |
+| **T03** | Configuração do ORM            | Instalar e configurar Prisma (ou TypeORM) com conexão ao PostgreSQL                             | Setup          | Alta       |   OK   |
 | **T04** | Estrutura da Arquitetura       | Definir e criar a base da arquitetura em camadas: Domain, Application e Infrastructure          | Arquitetura    | Alta       |   OK   |        
 | **T05** | Entidade: Produtor             | Modelar entidade Produtor, incluindo CPF/CNPJ como objeto de valor                              | Domain         | Alta       |   OK   |
 | **T06** | Entidade: Fazenda              | Modelar entidade Fazenda com objetos de valor Área e Endereço                                   | Domain         | Alta       |   OK   |
@@ -14,12 +14,12 @@
 | **T10** | Repository Pattern             | Implementar contratos de repositórios (interfaces) para cada entidade                           | Application    | Alta       |   OK   |
 | **T11** | Implementação dos Repositórios | Implementação concreta dos repositórios usando Prisma/TypeORM                                   | Infrastructure | Alta       |   OK   |
 | **T12** | Use Cases: CRUD Produtor       | Criar use cases para criar, editar, excluir e listar produtores                                 | Application    | Alta       |   OK   |
-| **T13** | Use Cases: CRUD Fazenda        | Criar use cases para criar, editar, excluir e listar fazendas                                   | Application    | Alta       |        |
-| **T14** | Use Cases: CRUD Safra          | Criar use cases para criar, editar, excluir e listar safras                                     | Application    | Média      |        |
-| **T15** | Use Cases: CRUD Cultura        | Criar use cases para criar, editar, excluir e listar culturas                                   | Application    | Média      |        |
+| **T13** | Use Cases: CRUD Fazenda        | Criar use cases para criar, editar, excluir e listar fazendas                                   | Application    | Alta       |   OK   |
+| **T14** | Use Cases: CRUD Safra          | Criar use cases para criar, editar, excluir e listar safras                                     | Application    | Média      |   OK   |
+| **T15** | Use Cases: CRUD Cultura        | Criar use cases para criar, editar, excluir e listar culturas                                   | Application    | Média      |   OK   |
 | **T16** | Validação de CPF/CNPJ          | Implementar validação robusta de CPF/CNPJ no cadastro de produtores                             | Domain         | Alta       |   OK   |
 | **T17** | Validação de Área              | Implementar regra: Área Agricultável + Área Vegetação = Área Total                              | Domain         | Alta       |   OK   |
-| **T18** | API - Produtor                 | Implementar endpoints REST para CRUD de produtores                                              | Infrastructure | Alta       |        |
+| **T18** | API - Produtor                 | Implementar endpoints REST para CRUD de produtores                                              | Infrastructure | Alta       |   OK   |
 | **T19** | API - Fazenda                  | Implementar endpoints REST para CRUD de fazendas                                                | Infrastructure | Alta       |        |
 | **T20** | API - Safra                    | Implementar endpoints REST para CRUD de safras                                                  | Infrastructure | Média      |        |
 | **T21** | API - Cultura                  | Implementar endpoints REST para CRUD de culturas                                                | Infrastructure | Média      |        |
