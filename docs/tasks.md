@@ -23,12 +23,12 @@
 | **T19** | API - Fazenda                  | Implementar endpoints REST para CRUD de fazendas                                                | Infrastructure | Alta       |   OK   |
 | **T20** | API - Safra                    | Implementar endpoints REST para CRUD de safras                                                  | Infrastructure | Média      |   OK   |
 | **T21** | API - Cultura                  | Implementar endpoints REST para CRUD de culturas                                                | Infrastructure | Média      |   OK   |
-| **T22** | API - Dashboard                | Endpoint para dashboard: total de fazendas, hectares, filtros por estado, cultura e uso do solo | Infrastructure | Alta       |        |
+| **T22** | API - Dashboard                | Endpoint para dashboard: total de fazendas, hectares, filtros por estado, cultura e uso do solo | Infrastructure | Alta       |   OK   |
 | **T23** | API Documentation              | Gerar documentação Swagger (OpenAPI) com exemplos de payloads                                   | Infrastructure | Alta       |        |
 | **T24** | Logs e Observabilidade         | Implementar logs estruturados, middlewares de request/response e error handling                 | Cross          | Alta       |        |
 | **T25** | Testes Unitários - Domain      | Criar testes unitários para entidades e regras de negócio (CPF, Área)                           | Teste          | Alta       |   OK   |
 | **T26** | Testes Unitários - Use Cases   | Criar testes unitários para os principais use cases                                             | Teste          | Alta       |   OK   |
-| **T27** | Testes de Integração           | Criar testes de integração dos endpoints com banco                                              | Teste          | Média      |        |
+| **T27** | Testes de Integração           | Criar testes e2e dos endpoints com banco                                                        | Teste          | Média      |   OK   |
 | **T28** | CI Local                       | Configurar CI/CD local com Docker, Docker Compose e GitHub Actions                              | DevOps         | Média      |        |
 | **T29** | Readme e Setup                 | Criar README explicando setup, arquitetura e uso da API                                         | Documentação   | Alta       |        |
 | **T30** | Refino Final                   | Fazer revisão de código, checagem de Clean Code, SOLID, KISS, validação de contratos e testes   | Refinamento    | Alta       |        |
