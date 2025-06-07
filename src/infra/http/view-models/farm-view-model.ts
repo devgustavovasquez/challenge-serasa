@@ -9,10 +9,8 @@ export class FarmViewModel {
       totalArea: farm.totalArea,
       cultivatedArea: farm.cultivatedArea,
       vegetationArea: farm.vegetationArea,
-      address: {
-        city: farm.address.city,
-        state: farm.address.state,
-      },
+      city: farm.address.city,
+      state: farm.address.state,
       createdAt: farm.createdAt,
       updatedAt: farm.updatedAt,
     };
