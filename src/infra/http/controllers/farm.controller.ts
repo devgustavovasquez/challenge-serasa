@@ -8,6 +8,7 @@ import {
   UpdateFarmBodyDto,
   UpdateFarmParamsDto,
 } from "../dtos/update-farm-dto";
+import { FarmViewModel } from "../view-models/farm-view-model";
 
 @Controller("farms")
 export class FarmController {
@@ -19,19 +20,28 @@ export class FarmController {
 
   @Post()
   async create(@Body() body: CreateFarmDto): Promise<unknown> {
-    return await this.addFarmUseCase.execute({ ...body });
+    const result = await this.addFarmUseCase.execute({ ...body });
+
+    return FarmViewModel.toHTTP(result);
   }
 
   @Get()
   async list(@Query() query: ListFarmsDto): Promise<unknown> {
-    return await this.listFarmsUseCase.execute(query);
+    const result = await this.listFarmsUseCase.execute(query);
+
+    return {
+      data: result.data.map(FarmViewModel.toHTTP),
+      meta: result.meta,
+    };
   }
 
   @Put("/:id")
   async update(
     @Param() params: UpdateFarmParamsDto,
     @Body() body: UpdateFarmBodyDto,
-  ): Promise<unknown> {
-    return await this.updateFarmUseCase.execute({ ...body, id: params.id });
+  ): Promise<void> {
+    await this.updateFarmUseCase.execute({ ...body, id: params.id });
+
+    return;
   }
 }

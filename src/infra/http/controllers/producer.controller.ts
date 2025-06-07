@@ -21,6 +21,7 @@ import {
   UpdateProducerBodyDto,
   UpdateProducerParamsDto,
 } from "../dtos/update-producer-dto";
+import { ProducerViewModel } from "../view-models/producer-view-model";
 
 @Controller("producers")
 export class ProducerController {
@@ -34,32 +35,47 @@ export class ProducerController {
 
   @Post()
   async create(@Body() body: CreateProducerDto): Promise<unknown> {
-    return await this.addProducerUseCase.execute({
+    const result = await this.addProducerUseCase.execute({
       document: body.document,
       name: body.name,
     });
+
+    return ProducerViewModel.toHTTP(result);
   }
 
   @Get("/:id")
   async get(@Param() params: GetProducerDto): Promise<unknown> {
-    return await this.getProducerUseCase.execute({ producerId: params.id });
+    const result = await this.getProducerUseCase.execute({
+      producerId: params.id,
+    });
+
+    return ProducerViewModel.toHTTP(result);
   }
 
   @Get()
   async list(@Query() query: ListProducersDto): Promise<unknown> {
-    return await this.listProducersUseCase.execute(query);
+    const result = await this.listProducersUseCase.execute(query);
+
+    return {
+      data: result.data.map(ProducerViewModel.toHTTP),
+      meta: result.meta,
+    };
   }
 
   @Put("/:id")
   async update(
     @Param() params: UpdateProducerParamsDto,
     @Body() body: UpdateProducerBodyDto,
-  ): Promise<unknown> {
-    return await this.updateProducerUseCase.execute({ ...body, id: params.id });
+  ): Promise<void> {
+    await this.updateProducerUseCase.execute({ ...body, id: params.id });
+
+    return;
   }
 
   @Delete("/:id")
-  async delete(@Param() params: DeleteProducerDto): Promise<unknown> {
-    return await this.deleteProducerUseCase.execute({ id: params.id });
+  async delete(@Param() params: DeleteProducerDto): Promise<void> {
+    await this.deleteProducerUseCase.execute({ id: params.id });
+
+    return;
   }
 }
