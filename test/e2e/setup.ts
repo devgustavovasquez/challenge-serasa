@@ -32,12 +32,15 @@ async function setup() {
 
 async function clearDb() {
   execSync("npx prisma migrate deploy");
-
-  await prisma.farm.deleteMany();
-  await prisma.producer.deleteMany();
-  await prisma.address.deleteMany();
-  await prisma.harvest.deleteMany();
-  await prisma.crop.deleteMany();
+  await prisma.$executeRawUnsafe(`
+    TRUNCATE TABLE 
+      "crops", 
+      "harvests", 
+      "farms", 
+      "producers", 
+      "addresses"
+    RESTART IDENTITY CASCADE
+  `);
 }
 
 async function teardown() {

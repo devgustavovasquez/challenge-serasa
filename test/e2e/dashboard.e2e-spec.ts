@@ -23,7 +23,7 @@ describe("Dashboard (e2e)", () => {
     });
   });
 
-  it("deve retornar os dados do dashboard corretamente", async () => {
+  it("should return dashboard data", async () => {
     const res = await request(app.getHttpServer())
       .get("/dashboard")
       .expect(200);
