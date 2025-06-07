@@ -24,7 +24,7 @@ export class AddFarmUseCase {
   ) {}
 
   async execute(input: AddFarmInput): Promise<AddFarmOutput> {
-    const address = Address.create({ city: "São Paulo", state: "SP" });
+    const address = Address.create({ city: input.city, state: input.state });
 
     const producer = await this.producerRepository.findById(input.producerId);
 
