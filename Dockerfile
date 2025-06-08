@@ -30,5 +30,6 @@ RUN pnpm install --prod
 
 RUN pnpm prisma generate
 
-EXPOSE ${PORT}
+EXPOSE 3131
+
 CMD ["node", "dist/main.js"]
