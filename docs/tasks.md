@@ -3,7 +3,7 @@
 | ID      | Task                           | Descrição                                                                                       | Categoria      | Prioridade | Status |
 | ------- | ------------------------------ | ----------------------------------------------------------------------------------------------- | -------------- | ---------- | ------ |
 | **T01** | Setup do Projeto               | Configurar projeto Node.js + TypeScript + NestJS com ESLint, Prettier e Husky                   | Setup          | Alta       |   OK   |        
-| **T02** | Setup do Docker                | Criar dockerfile, docker-compose com PostgreSQL e configuração de volumes                       | Setup          | Alta       |        |
+| **T02** | Setup do Docker                | Criar dockerfile, docker-compose com PostgreSQL e configuração de volumes                       | Setup          | Alta       |   OK   |
 | **T03** | Configuração do ORM            | Instalar e configurar Prisma (ou TypeORM) com conexão ao PostgreSQL                             | Setup          | Alta       |   OK   |
 | **T04** | Estrutura da Arquitetura       | Definir e criar a base da arquitetura em camadas: Domain, Application e Infrastructure          | Arquitetura    | Alta       |   OK   |        
 | **T05** | Entidade: Produtor             | Modelar entidade Produtor, incluindo CPF/CNPJ como objeto de valor                              | Domain         | Alta       |   OK   |
@@ -24,7 +24,7 @@
 | **T20** | API - Safra                    | Implementar endpoints REST para CRUD de safras                                                  | Infrastructure | Média      |   OK   |
 | **T21** | API - Cultura                  | Implementar endpoints REST para CRUD de culturas                                                | Infrastructure | Média      |   OK   |
 | **T22** | API - Dashboard                | Endpoint para dashboard: total de fazendas, hectares, filtros por estado, cultura e uso do solo | Infrastructure | Alta       |   OK   |
-| **T23** | API Documentation              | Gerar documentação Swagger (OpenAPI) com exemplos de payloads                                   | Infrastructure | Alta       |        |
+| **T23** | API Documentation              | Gerar documentação Swagger (OpenAPI) com exemplos de payloads                                   | Infrastructure | Alta       |   OK   |
 | **T24** | Logs e Observabilidade         | Implementar logs estruturados, middlewares de request/response e error handling                 | Cross          | Alta       |        |
 | **T25** | Testes Unitários - Domain      | Criar testes unitários para entidades e regras de negócio (CPF, Área)                           | Teste          | Alta       |   OK   |
 | **T26** | Testes Unitários - Use Cases   | Criar testes unitários para os principais use cases                                             | Teste          | Alta       |   OK   |
