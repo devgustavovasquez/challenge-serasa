@@ -1,3 +1,5 @@
+import { ValidationError } from "src/core/errors/validation-error";
+
 export type CropProps = {
   name: string;
   year: number;
@@ -43,19 +45,21 @@ export class Crop {
 
   private validateName(name: string) {
     if (!name || name.trim().length < 2) {
-      throw new Error("Name is required and must be at least 2 characters");
+      throw new ValidationError(
+        "Name is required and must be at least 2 characters",
+      );
     }
   }
 
   private validateProduction(production: number) {
     if (production < 0) {
-      throw new Error("Production must be greater than 0");
+      throw new ValidationError("Production must be greater than 0");
     }
   }
 
   private validateYear(year: number) {
     if (year <= 0) {
-      throw new Error("Year must be greater than 0");
+      throw new ValidationError("Year must be greater than 0");
     }
   }
 }

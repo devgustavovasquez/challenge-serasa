@@ -7,6 +7,7 @@ import {
 import "reflect-metadata";
 import { AppModule } from "./app.module";
 import { setupSwagger } from "./infra/http/docs/swagger.config";
+import { GlobalErrorFilter } from "./infra/http/filters/global-error-filter";
 import { LoggingInterceptor } from "./infra/http/interceptors/logging-interceptor";
 import { WinstonLoggerService } from "./infra/logger/winston-logger.service";
 
@@ -30,6 +31,7 @@ async function bootstrap() {
   );
 
   app.useGlobalInterceptors(new LoggingInterceptor());
+  app.useGlobalFilters(new GlobalErrorFilter());
 
   setupSwagger(app);
 

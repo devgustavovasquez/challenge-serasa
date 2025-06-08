@@ -1,3 +1,4 @@
+import { ValidationError } from "src/core/errors/validation-error";
 import { DocumentValidator } from "../../validators/document-validator";
 
 export class Document {
@@ -11,7 +12,7 @@ export class Document {
     const cleaned = DocumentValidator.format(value);
 
     if (!DocumentValidator.isValid(cleaned)) {
-      throw new Error("Invalid Document");
+      throw new ValidationError("Invalid Document");
     }
 
     return new Document(cleaned);

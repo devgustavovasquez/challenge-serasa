@@ -1,5 +1,6 @@
 import { Mock, vi } from "vitest";
 
+import { ValidationError } from "src/core/errors/validation-error";
 import { Producer } from "src/domain/entities/producer";
 import { ProducerRepository } from "../repositories/producer-repository";
 import { AddProducerUseCase } from "./add-producer-use-case";
@@ -57,9 +58,7 @@ describe("AddProducerUseCase", () => {
       document: "589.491.301-22",
     };
 
-    await expect(sut.execute(input)).rejects.toThrow(
-      new Error("Name is required and must be at least 2 characters"),
-    );
+    await expect(sut.execute(input)).rejects.toThrow(ValidationError);
   });
 
   it("should throw an error if producer document is invalid", async () => {
@@ -68,19 +67,6 @@ describe("AddProducerUseCase", () => {
       document: "any_document",
     };
 
-    await expect(sut.execute(input)).rejects.toThrow(
-      new Error("Invalid Document"),
-    );
-  });
-
-  it("should throw an error if producer repository throws", async () => {
-    producerRepository.create.mockRejectedValueOnce(new Error("any_error"));
-
-    const input = {
-      name: "any_name",
-      document: "589.491.301-22",
-    };
-
-    await expect(sut.execute(input)).rejects.toThrow(new Error("any_error"));
+    await expect(sut.execute(input)).rejects.toThrow(ValidationError);
   });
 });

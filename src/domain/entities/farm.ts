@@ -1,4 +1,5 @@
 import { randomUUID } from "node:crypto";
+import { ValidationError } from "src/core/errors/validation-error";
 import { Optional } from "../../utils/optional";
 import { Address } from "./value-object/address";
 
@@ -74,7 +75,9 @@ export class Farm {
 
   private validateName(name: string) {
     if (!name || name.trim().length < 2) {
-      throw new Error("Name is required and must be at least 2 characters");
+      throw new ValidationError(
+        "Name is required and must be at least 2 characters",
+      );
     }
   }
 
@@ -84,19 +87,25 @@ export class Farm {
     vegetationArea: number,
   ) {
     if (totalArea <= 0) {
-      throw new Error("Total area must be greater than 0");
+      throw new ValidationError("Total area must be greater than 0");
     }
 
     if (Math.sign(cultivatedArea) < 0) {
-      throw new Error("Cultivated area must be greater or equal to 0");
+      throw new ValidationError(
+        "Cultivated area must be greater or equal to 0",
+      );
     }
 
     if (Math.sign(vegetationArea) < 0) {
-      throw new Error("Vegetation area must be greater or equal to 0");
+      throw new ValidationError(
+        "Vegetation area must be greater or equal to 0",
+      );
     }
 
     if (totalArea < cultivatedArea + vegetationArea) {
-      throw new Error("Total area must be greater than cultivated area");
+      throw new ValidationError(
+        "Total area must be greater than cultivated area",
+      );
     }
   }
 }

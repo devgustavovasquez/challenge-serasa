@@ -1,4 +1,5 @@
 import { Logger } from "@nestjs/common";
+import { NotFoundError } from "src/core/errors/not-found-error";
 import { Harvest } from "src/domain/entities/harvest";
 import { Crop } from "src/domain/entities/value-object/crop";
 import { FarmRepository } from "../repositories/farm-repository";
@@ -33,7 +34,7 @@ export class AddHarvestUseCase {
 
       if (!farm) {
         this.logger.warn(`Farm with id=${input.farmId} not found`);
-        throw new Error("Farm not found");
+        throw new NotFoundError("Farm not found");
       }
 
       const crops = input.crops.map((crop) =>

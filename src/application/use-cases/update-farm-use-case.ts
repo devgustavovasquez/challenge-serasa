@@ -1,4 +1,5 @@
 import { Injectable, Logger } from "@nestjs/common";
+import { NotFoundError } from "src/core/errors/not-found-error";
 import { Farm } from "src/domain/entities/farm";
 import { Address } from "src/domain/entities/value-object/address";
 import { FarmRepository } from "../repositories/farm-repository";
@@ -33,7 +34,7 @@ export class UpdateFarmUseCase {
       const producer = await this.producerRepository.findById(input.producerId);
       if (!producer) {
         this.logger.warn(`Producer not found with ID: ${input.producerId}`);
-        throw new Error("Producer not found");
+        throw new NotFoundError("Producer not found");
       }
 
       const address = Address.create({ city: input.city, state: input.state });
@@ -41,7 +42,7 @@ export class UpdateFarmUseCase {
       const farmExists = await this.farmRepository.findById(input.id);
       if (!farmExists) {
         this.logger.warn(`Farm not found with ID: ${input.id}`);
-        throw new Error("Farm not found");
+        throw new NotFoundError("Farm not found");
       }
 
       const farm = Farm.create(

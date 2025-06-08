@@ -1,4 +1,5 @@
 import { Injectable, Logger } from "@nestjs/common";
+import { NotFoundError } from "src/core/errors/not-found-error";
 import { ProducerRepository } from "../repositories/producer-repository";
 
 export type DeleteProducerInput = {
@@ -21,7 +22,7 @@ export class DeleteProducerUseCase {
 
       if (!producer) {
         this.logger.warn(`Producer not found with id=${input.id}`);
-        throw new Error("Producer not found");
+        throw new NotFoundError("Producer not found");
       }
 
       await this.producerRepository.delete(input.id);

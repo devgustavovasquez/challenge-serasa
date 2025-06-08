@@ -1,5 +1,6 @@
 import { Mock, vi } from "vitest";
 
+import { NotFoundError } from "src/core/errors/not-found-error";
 import { Farm } from "src/domain/entities/farm";
 import { makeProducer } from "test/factories/make-producer";
 import { FarmRepository } from "../repositories/farm-repository";
@@ -65,6 +66,6 @@ describe("AddFarmUseCase", () => {
 
     const promise = sut.execute(input);
 
-    await expect(promise).rejects.toThrow(new Error("Producer not found"));
+    await expect(promise).rejects.toThrow(NotFoundError);
   });
 });

@@ -1,4 +1,5 @@
 import { Injectable, Logger } from "@nestjs/common";
+import { NotFoundError } from "src/core/errors/not-found-error";
 import { Producer } from "src/domain/entities/producer";
 import { ProducerRepository } from "../repositories/producer-repository";
 
@@ -22,7 +23,7 @@ export class GetProducerUseCase {
 
       if (!producer) {
         this.logger.warn(`Producer not found with id=${input.producerId}`);
-        throw new Error("Producer not found");
+        throw new NotFoundError("Producer not found");
       }
 
       this.logger.log(`Producer found with id=${input.producerId}`);

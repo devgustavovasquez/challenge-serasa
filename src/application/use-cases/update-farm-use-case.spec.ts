@@ -1,3 +1,4 @@
+import { NotFoundError } from "src/core/errors/not-found-error";
 import { makeFarm } from "test/factories/make-farm";
 import { makeProducer } from "test/factories/make-producer";
 import { FarmInMemoryRepository } from "test/repositories/farm-in-memory-repository";
@@ -68,9 +69,7 @@ describe("UpdateFarmUseCase", () => {
       vegetationArea: 20,
     };
 
-    await expect(() => sut.execute(input)).rejects.toThrow(
-      new Error("Producer not found"),
-    );
+    await expect(() => sut.execute(input)).rejects.toThrow(NotFoundError);
   });
 
   it("should throw an error if farm not found", async () => {
@@ -88,8 +87,6 @@ describe("UpdateFarmUseCase", () => {
       vegetationArea: 20,
     };
 
-    await expect(() => sut.execute(input)).rejects.toThrow(
-      new Error("Farm not found"),
-    );
+    await expect(() => sut.execute(input)).rejects.toThrow(NotFoundError);
   });
 });

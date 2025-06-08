@@ -1,4 +1,5 @@
 import { randomUUID } from "node:crypto";
+import { ValidationError } from "src/core/errors/validation-error";
 import { Optional } from "../../utils/optional";
 import { Document } from "./value-object/document";
 
@@ -49,7 +50,9 @@ export class Producer {
 
   private validateName(name: string) {
     if (!name || name.trim().length < 2) {
-      throw new Error("Name is required and must be at least 2 characters");
+      throw new ValidationError(
+        "Name is required and must be at least 2 characters",
+      );
     }
   }
 }

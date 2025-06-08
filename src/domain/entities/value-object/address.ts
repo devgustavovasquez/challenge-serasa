@@ -1,3 +1,4 @@
+import { ValidationError } from "src/core/errors/validation-error";
 import { UFS } from "../../enums/ufs";
 
 export type AddressProps = {
@@ -14,11 +15,13 @@ export class Address {
     const { city, state } = props;
 
     if (!city || city.trim().length < 2) {
-      throw new Error("City is required and must be at least 2 characters");
+      throw new ValidationError(
+        "City is required and must be at least 2 characters",
+      );
     }
 
     if (!state || !UFS.includes(state.toUpperCase())) {
-      throw new Error("State is invalid or missing");
+      throw new ValidationError("State is invalid or missing");
     }
 
     return new Address(props);

@@ -1,3 +1,4 @@
+import { NotFoundError } from "src/core/errors/not-found-error";
 import { makeProducer } from "test/factories/make-producer";
 import { ProducerInMemoryRepository } from "test/repositories/producer-in-memory-repository";
 import { UpdateProducerUseCase } from "./update-producer-use-case";
@@ -38,8 +39,6 @@ describe("UpdateProducerUseCase", () => {
       city: "any_city",
     };
 
-    await expect(sut.execute(input)).rejects.toThrow(
-      new Error("Producer not found"),
-    );
+    await expect(sut.execute(input)).rejects.toThrow(NotFoundError);
   });
 });

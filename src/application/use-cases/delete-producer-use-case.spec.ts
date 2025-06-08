@@ -1,3 +1,4 @@
+import { NotFoundError } from "src/core/errors/not-found-error";
 import { makeProducer } from "test/factories/make-producer";
 import { ProducerInMemoryRepository } from "test/repositories/producer-in-memory-repository";
 import { DeleteProducerUseCase } from "./delete-producer-use-case";
@@ -29,8 +30,6 @@ describe("DeleteProducerUseCase", () => {
       id: "any_id",
     };
 
-    await expect(sut.execute(input)).rejects.toThrow(
-      new Error("Producer not found"),
-    );
+    await expect(sut.execute(input)).rejects.toThrow(NotFoundError);
   });
 });
