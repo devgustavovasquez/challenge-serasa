@@ -3,6 +3,7 @@ import {
   Controller,
   Delete,
   Get,
+  Logger,
   Param,
   Post,
   Put,
@@ -31,6 +32,8 @@ import { ProducerViewModel } from "../view-models/producer-view-model";
 @ApiTags("Producers")
 @Controller("producers")
 export class ProducerController {
+  private readonly logger = new Logger(ProducerController.name);
+
   constructor(
     private readonly addProducerUseCase: AddProducerUseCase,
     private readonly getProducerUseCase: GetProducerUseCase,
@@ -47,12 +50,21 @@ export class ProducerController {
     description: "The producer has been successfully created.",
   })
   async create(@Body() body: CreateProducerDto): Promise<ProducerResponseDto> {
-    const result = await this.addProducerUseCase.execute({
-      document: body.document,
-      name: body.name,
-    });
+    this.logger.log(`create() called with body: ${JSON.stringify(body)}`);
+    try {
+      const result = await this.addProducerUseCase.execute({
+        document: body.document,
+        name: body.name,
+      });
 
-    return ProducerViewModel.toHTTP(result);
+      this.logger.log(`Producer created successfully: id=${result.id}`);
+      return ProducerViewModel.toHTTP(result);
+    } catch (error) {
+      if (error instanceof Error) {
+        this.logger.error(`create() failed: ${error.message}`, error.stack);
+      }
+      throw error;
+    }
   }
 
   @Get("/:id")
@@ -63,11 +75,20 @@ export class ProducerController {
     description: "The producer has been successfully found.",
   })
   async get(@Param() params: GetProducerDto): Promise<ProducerResponseDto> {
-    const result = await this.getProducerUseCase.execute({
-      producerId: params.id,
-    });
+    this.logger.log(`get() called with id: ${params.id}`);
+    try {
+      const result = await this.getProducerUseCase.execute({
+        producerId: params.id,
+      });
 
-    return ProducerViewModel.toHTTP(result);
+      this.logger.log(`Producer found: id=${result.id}`);
+      return ProducerViewModel.toHTTP(result);
+    } catch (error) {
+      if (error instanceof Error) {
+        this.logger.error(`get() failed: ${error.message}`, error.stack);
+      }
+      throw error;
+    }
   }
 
   @Get()
@@ -80,12 +101,23 @@ export class ProducerController {
   async list(
     @Query() query: ListProducersDto,
   ): Promise<PaginatedProducerResponseDto> {
-    const result = await this.listProducersUseCase.execute(query);
+    this.logger.log(`list() called with query: ${JSON.stringify(query)}`);
+    try {
+      const result = await this.listProducersUseCase.execute(query);
 
-    return {
-      data: result.data.map(ProducerViewModel.toHTTP),
-      meta: result.meta,
-    };
+      this.logger.log(
+        `list() success: returned ${result.data.length} producers`,
+      );
+      return {
+        data: result.data.map(ProducerViewModel.toHTTP),
+        meta: result.meta,
+      };
+    } catch (error) {
+      if (error instanceof Error) {
+        this.logger.error(`list() failed: ${error.message}`, error.stack);
+      }
+      throw error;
+    }
   }
 
   @Put("/:id")
@@ -99,9 +131,20 @@ export class ProducerController {
     @Param() params: UpdateProducerParamsDto,
     @Body() body: UpdateProducerBodyDto,
   ): Promise<void> {
-    await this.updateProducerUseCase.execute({ ...body, id: params.id });
+    this.logger.log(
+      `update() called with id: ${params.id} and body: ${JSON.stringify(body)}`,
+    );
+    try {
+      await this.updateProducerUseCase.execute({ ...body, id: params.id });
 
-    return;
+      this.logger.log(`Producer updated successfully: id=${params.id}`);
+      return;
+    } catch (error) {
+      if (error instanceof Error) {
+        this.logger.error(`update() failed: ${error.message}`, error.stack);
+      }
+      throw error;
+    }
   }
 
   @Delete("/:id")
@@ -112,8 +155,17 @@ export class ProducerController {
     description: "The producer has been successfully deleted.",
   })
   async delete(@Param() params: DeleteProducerDto): Promise<void> {
-    await this.deleteProducerUseCase.execute({ id: params.id });
+    this.logger.log(`delete() called with id: ${params.id}`);
+    try {
+      await this.deleteProducerUseCase.execute({ id: params.id });
 
-    return;
+      this.logger.log(`Producer deleted successfully: id=${params.id}`);
+      return;
+    } catch (error) {
+      if (error instanceof Error) {
+        this.logger.error(`delete() failed: ${error.message}`, error.stack);
+      }
+      throw error;
+    }
   }
 }

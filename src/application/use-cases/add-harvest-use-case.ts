@@ -1,3 +1,4 @@
+import { Logger } from "@nestjs/common";
 import { Harvest } from "src/domain/entities/harvest";
 import { Crop } from "src/domain/entities/value-object/crop";
 import { FarmRepository } from "../repositories/farm-repository";
@@ -15,34 +16,56 @@ export type AddHarvestInput = {
 export type AddHarvestOutput = Harvest;
 
 export class AddHarvestUseCase {
+  private readonly logger = new Logger(AddHarvestUseCase.name);
+
   constructor(
     private harvestRepository: HarvestRepository,
     private farmRepository: FarmRepository,
   ) {}
 
   async execute(input: AddHarvestInput): Promise<AddHarvestOutput> {
-    const farm = await this.farmRepository.findById(input.farmId);
-
-    if (!farm) {
-      throw new Error("Farm not found");
-    }
-
-    const crops = input.crops.map((crop) =>
-      Crop.create({
-        name: crop.name,
-        year: input.year,
-        production: crop.production,
-      }),
+    this.logger.log(
+      `Starting to add harvest for farmId=${input.farmId} and year=${input.year}`,
     );
 
-    const harvest = Harvest.create({
-      farmId: input.farmId,
-      crops,
-      year: input.year,
-    });
+    try {
+      const farm = await this.farmRepository.findById(input.farmId);
 
-    await this.harvestRepository.create(harvest);
+      if (!farm) {
+        this.logger.warn(`Farm with id=${input.farmId} not found`);
+        throw new Error("Farm not found");
+      }
 
-    return harvest;
+      const crops = input.crops.map((crop) =>
+        Crop.create({
+          name: crop.name,
+          year: input.year,
+          production: crop.production,
+        }),
+      );
+
+      const harvest = Harvest.create({
+        farmId: input.farmId,
+        crops,
+        year: input.year,
+      });
+
+      await this.harvestRepository.create(harvest);
+
+      this.logger.log(`Harvest created with id=${harvest.id}`);
+
+      return harvest;
+    } catch (error) {
+      if (error instanceof Error) {
+        this.logger.error(
+          `Error adding harvest: ${error.message}`,
+          error.stack,
+        );
+      } else {
+        this.logger.error(`Unknown error adding harvest`);
+      }
+
+      throw error;
+    }
   }
 }

@@ -1,0 +1,27 @@
+volumes:
+  serasa_postgres_data:
+
+networks:
+  serasa-network:
+    driver: bridge
+
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: serasa_postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${DATABASE_USER}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
+      POSTGRES_DB: ${DATABASE_NAME}
+    ports:
+      - "5432:5432"
+    volumes:
+      - serasa_postgres_data:/var/lib/postgresql/data
+    networks:
+      - serasa-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DATABASE_USER}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5

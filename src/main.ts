@@ -7,6 +7,7 @@ import {
 import "reflect-metadata";
 import { AppModule } from "./app.module";
 import { setupSwagger } from "./infra/http/docs/swagger.config";
+import { LoggingInterceptor } from "./infra/http/interceptors/logging-interceptor";
 import { WinstonLoggerService } from "./infra/logger/winston-logger.service";
 
 async function bootstrap() {
@@ -27,6 +28,8 @@ async function bootstrap() {
       transform: true,
     }),
   );
+
+  app.useGlobalInterceptors(new LoggingInterceptor());
 
   setupSwagger(app);
 

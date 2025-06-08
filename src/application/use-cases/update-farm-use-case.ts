@@ -1,4 +1,4 @@
-import { Injectable } from "@nestjs/common";
+import { Injectable, Logger } from "@nestjs/common";
 import { Farm } from "src/domain/entities/farm";
 import { Address } from "src/domain/entities/value-object/address";
 import { FarmRepository } from "../repositories/farm-repository";
@@ -19,36 +19,50 @@ export type UpdateFarmOutput = void;
 
 @Injectable()
 export class UpdateFarmUseCase {
+  private readonly logger = new Logger(UpdateFarmUseCase.name);
+
   constructor(
     private farmRepository: FarmRepository,
     private producerRepository: ProducerRepository,
   ) {}
 
   async execute(input: UpdateFarmInput): Promise<UpdateFarmOutput> {
-    const producer = await this.producerRepository.findById(input.producerId);
+    this.logger.log(`Updating farm with ID: ${input.id}`);
 
-    if (!producer) {
-      throw new Error("Producer not found");
+    try {
+      const producer = await this.producerRepository.findById(input.producerId);
+      if (!producer) {
+        this.logger.warn(`Producer not found with ID: ${input.producerId}`);
+        throw new Error("Producer not found");
+      }
+
+      const address = Address.create({ city: input.city, state: input.state });
+
+      const farmExists = await this.farmRepository.findById(input.id);
+      if (!farmExists) {
+        this.logger.warn(`Farm not found with ID: ${input.id}`);
+        throw new Error("Farm not found");
+      }
+
+      const farm = Farm.create(
+        {
+          ...input,
+          address,
+          updatedAt: new Date(),
+          createdAt: farmExists.createdAt,
+        },
+        input.id,
+      );
+
+      await this.farmRepository.update(farm);
+      this.logger.log(`Farm updated successfully: ${input.id}`);
+    } catch (error) {
+      if (error instanceof Error) {
+        this.logger.error(`Error updating farm: ${error.message}`, error.stack);
+      } else {
+        this.logger.error("Unknown error updating farm");
+      }
+      throw error;
     }
-
-    const address = Address.create({ city: input.city, state: input.state });
-
-    const farmExists = await this.farmRepository.findById(input.id);
-
-    if (!farmExists) {
-      throw new Error("Farm not found");
-    }
-
-    const farm = Farm.create(
-      {
-        ...input,
-        address,
-        updatedAt: new Date(),
-        createdAt: farmExists.createdAt,
-      },
-      input.id,
-    );
-
-    await this.farmRepository.update(farm);
   }
 }

@@ -1,4 +1,4 @@
-import { Body, Controller, Post } from "@nestjs/common";
+import { Body, Controller, Logger, Post } from "@nestjs/common";
 import { ApiOperation, ApiResponse, ApiTags } from "@nestjs/swagger";
 import { AddHarvestUseCase } from "src/application/use-cases/add-harvest-use-case";
 import { CreateHarvestDto } from "../dtos/create-harvest-dto";
@@ -8,6 +8,8 @@ import { HarvestViewModel } from "../view-models/harvest-view-model";
 @ApiTags("Harvests")
 @Controller("harvests")
 export class HarvestController {
+  private readonly logger = new Logger(HarvestController.name);
+
   constructor(private readonly addHarvestUseCase: AddHarvestUseCase) {}
 
   @Post()
@@ -18,8 +20,24 @@ export class HarvestController {
     description: "Created",
   })
   async create(@Body() body: CreateHarvestDto): Promise<HarvestResponseDto> {
-    const result = await this.addHarvestUseCase.execute({ ...body });
+    this.logger.log(`Creating harvest with data: ${JSON.stringify(body)}`);
 
-    return HarvestViewModel.toHTTP(result);
+    try {
+      const result = await this.addHarvestUseCase.execute({ ...body });
+
+      this.logger.log(
+        `Harvest created successfully: ${JSON.stringify(result)}`,
+      );
+      return HarvestViewModel.toHTTP(result);
+    } catch (error) {
+      if (error instanceof Error) {
+        this.logger.error(
+          `Failed to create harvest: ${error.message}`,
+          error.stack,
+        );
+      }
+
+      throw error;
+    }
   }
 }

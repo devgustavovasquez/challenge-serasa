@@ -1,4 +1,13 @@
-import { Body, Controller, Get, Param, Post, Put, Query } from "@nestjs/common";
+import {
+  Body,
+  Controller,
+  Get,
+  Logger,
+  Param,
+  Post,
+  Put,
+  Query,
+} from "@nestjs/common";
 import { ApiOperation, ApiResponse, ApiTags } from "@nestjs/swagger";
 import { AddFarmUseCase } from "src/application/use-cases/add-farm-use-case";
 import { ListFarmsUseCase } from "src/application/use-cases/list-farms-use-case";
@@ -18,6 +27,8 @@ import { FarmViewModel } from "../view-models/farm-view-model";
 @ApiTags("Farms")
 @Controller("farms")
 export class FarmController {
+  private readonly logger = new Logger(FarmController.name);
+
   constructor(
     private readonly addFarmUseCase: AddFarmUseCase,
     private readonly listFarmsUseCase: ListFarmsUseCase,
@@ -28,9 +39,23 @@ export class FarmController {
   @ApiOperation({ summary: "Create a new farm" })
   @ApiResponse({ status: 201, type: FarmResponseDto, description: "Created" })
   async create(@Body() body: CreateFarmDto): Promise<unknown> {
-    const result = await this.addFarmUseCase.execute({ ...body });
+    this.logger.log(`Creating farm with data: ${JSON.stringify(body)}`);
 
-    return FarmViewModel.toHTTP(result);
+    try {
+      const result = await this.addFarmUseCase.execute({ ...body });
+
+      this.logger.log(`Farm created successfully: ${JSON.stringify(result)}`);
+
+      return FarmViewModel.toHTTP(result);
+    } catch (error) {
+      if (error instanceof Error) {
+        this.logger.error(
+          `Failed to create farm: ${error.message}`,
+          error.stack,
+        );
+      }
+      throw error;
+    }
   }
 
   @Get()
@@ -41,12 +66,26 @@ export class FarmController {
     description: "The list of farms",
   })
   async list(@Query() query: ListFarmsDto): Promise<FarmPaginatedResponseDto> {
-    const result = await this.listFarmsUseCase.execute(query);
+    this.logger.log(`Listing farms with query: ${JSON.stringify(query)}`);
 
-    return {
-      data: result.data.map(FarmViewModel.toHTTP),
-      meta: result.meta,
-    };
+    try {
+      const result = await this.listFarmsUseCase.execute(query);
+
+      this.logger.log(`Farms listed successfully, total: ${result.meta.total}`);
+
+      return {
+        data: result.data.map(FarmViewModel.toHTTP),
+        meta: result.meta,
+      };
+    } catch (error) {
+      if (error instanceof Error) {
+        this.logger.error(
+          `Failed to list farms: ${error.message}`,
+          error.stack,
+        );
+      }
+      throw error;
+    }
   }
 
   @Put("/:id")
@@ -56,8 +95,24 @@ export class FarmController {
     @Param() params: UpdateFarmParamsDto,
     @Body() body: UpdateFarmBodyDto,
   ): Promise<void> {
-    await this.updateFarmUseCase.execute({ ...body, id: params.id });
+    this.logger.log(
+      `Updating farm ${params.id} with data: ${JSON.stringify(body)}`,
+    );
 
-    return;
+    try {
+      await this.updateFarmUseCase.execute({ ...body, id: params.id });
+
+      this.logger.log(`Farm ${params.id} updated successfully`);
+
+      return;
+    } catch (error) {
+      if (error instanceof Error) {
+        this.logger.error(
+          `Failed to update farm ${params.id}: ${error.message}`,
+          error.stack,
+        );
+      }
+      throw error;
+    }
   }
 }
