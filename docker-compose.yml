@@ -7,7 +7,7 @@ networks:
 
 services:
   api:
-    build: .
+    image: devgustavovasquez/challenge-serasa:latest
     container_name: serasa_api
     restart: unless-stopped
     env_file:
