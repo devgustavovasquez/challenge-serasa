@@ -11,7 +11,7 @@
     "build": "tsup",
     "start": "node dist/main.js",
     "dev": "nest start --watch",
-    "test": "vitest run",
+    "test": "vitest run && pnpm test:e2e",
     "test:e2e": "tsx scripts/cli.ts e2e",
     "test:dev": "vitest dev",
     "test:cov": "vitest run --coverage",
