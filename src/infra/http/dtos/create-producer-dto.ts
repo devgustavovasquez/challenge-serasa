@@ -1,6 +1,6 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { IsNotEmpty, MaxLength, MinLength } from "class-validator";
-import { IsDocument } from "./is-document";
+import { IsDocument } from "./helpers/is-document";
 
 export class CreateProducerDto {
   @ApiProperty({
