@@ -30,8 +30,8 @@
 | **T26** | Testes Unitários - Use Cases   | Criar testes unitários para os principais use cases                                             | Teste          | Alta       |   OK   |
 | **T27** | Testes de Integração           | Criar testes e2e dos endpoints com banco                                                        | Teste          | Média      |   OK   |
 | **T28** | CI Local                       | Configurar CI/CD local com Docker, Docker Compose e GitHub Actions                              | DevOps         | Média      |   OK   |
-| **T29** | Readme e Setup                 | Criar README explicando setup, arquitetura e uso da API                                         | Documentação   | Alta       |        |
-| **T30** | Refino Final                   | Fazer revisão de código, checagem de Clean Code, SOLID, KISS, validação de contratos e testes   | Refinamento    | Alta       |        |
+| **T29** | Readme e Setup                 | Criar README explicando setup, arquitetura e uso da API                                         | Documentação   | Alta       |   OK   |
+| **T30** | Refino Final                   | Fazer revisão de código, checagem de Clean Code, SOLID, KISS, validação de contratos e testes   | Refinamento    | Alta       |   OK   |
 
 ---
 
