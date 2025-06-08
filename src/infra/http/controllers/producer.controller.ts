@@ -8,6 +8,7 @@ import {
   Put,
   Query,
 } from "@nestjs/common";
+import { ApiOperation, ApiResponse, ApiTags } from "@nestjs/swagger";
 import { AddProducerUseCase } from "src/application/use-cases/add-producer-use-case";
 import { DeleteProducerUseCase } from "src/application/use-cases/delete-producer-use-case";
 import { GetProducerUseCase } from "src/application/use-cases/get-producer-use-case";
@@ -18,11 +19,16 @@ import { DeleteProducerDto } from "../dtos/delete-producer-dto";
 import { GetProducerDto } from "../dtos/get-producer-dto";
 import { ListProducersDto } from "../dtos/list-producers-dto";
 import {
+  PaginatedProducerResponseDto,
+  ProducerResponseDto,
+} from "../dtos/response/producer-response-dto";
+import {
   UpdateProducerBodyDto,
   UpdateProducerParamsDto,
 } from "../dtos/update-producer-dto";
 import { ProducerViewModel } from "../view-models/producer-view-model";
 
+@ApiTags("Producers")
 @Controller("producers")
 export class ProducerController {
   constructor(
@@ -34,7 +40,13 @@ export class ProducerController {
   ) {}
 
   @Post()
-  async create(@Body() body: CreateProducerDto): Promise<unknown> {
+  @ApiOperation({ summary: "Create producer" })
+  @ApiResponse({
+    status: 201,
+    type: ProducerResponseDto,
+    description: "The producer has been successfully created.",
+  })
+  async create(@Body() body: CreateProducerDto): Promise<ProducerResponseDto> {
     const result = await this.addProducerUseCase.execute({
       document: body.document,
       name: body.name,
@@ -44,7 +56,13 @@ export class ProducerController {
   }
 
   @Get("/:id")
-  async get(@Param() params: GetProducerDto): Promise<unknown> {
+  @ApiOperation({ summary: "Get producer by id" })
+  @ApiResponse({
+    status: 200,
+    type: ProducerResponseDto,
+    description: "The producer has been successfully found.",
+  })
+  async get(@Param() params: GetProducerDto): Promise<ProducerResponseDto> {
     const result = await this.getProducerUseCase.execute({
       producerId: params.id,
     });
@@ -53,7 +71,15 @@ export class ProducerController {
   }
 
   @Get()
-  async list(@Query() query: ListProducersDto): Promise<unknown> {
+  @ApiOperation({ summary: "List producers" })
+  @ApiResponse({
+    status: 200,
+    type: PaginatedProducerResponseDto,
+    description: "The producers has been successfully listed.",
+  })
+  async list(
+    @Query() query: ListProducersDto,
+  ): Promise<PaginatedProducerResponseDto> {
     const result = await this.listProducersUseCase.execute(query);
 
     return {
@@ -63,6 +89,12 @@ export class ProducerController {
   }
 
   @Put("/:id")
+  @ApiOperation({ summary: "Update producer" })
+  @ApiResponse({
+    status: 200,
+    type: undefined,
+    description: "The producer has been successfully updated.",
+  })
   async update(
     @Param() params: UpdateProducerParamsDto,
     @Body() body: UpdateProducerBodyDto,
@@ -73,6 +105,12 @@ export class ProducerController {
   }
 
   @Delete("/:id")
+  @ApiOperation({ summary: "Delete producer" })
+  @ApiResponse({
+    status: 200,
+    type: undefined,
+    description: "The producer has been successfully deleted.",
+  })
   async delete(@Param() params: DeleteProducerDto): Promise<void> {
     await this.deleteProducerUseCase.execute({ id: params.id });
 

@@ -1,7 +1,7 @@
 import { Controller, Get } from "@nestjs/common";
 import { ApiOperation, ApiResponse, ApiTags } from "@nestjs/swagger";
 import { DashboardQuery } from "src/application/queries/dashboard-query";
-import { DashboardResponse } from "../dtos/dashboard-dto";
+import { DashboardResponseDto } from "../dtos/response/dashboard-response-dto";
 
 @ApiTags("Dashboard")
 @Controller("dashboard")
@@ -12,7 +12,7 @@ export class DashboardController {
   @ApiOperation({ summary: "Dashboard Query" })
   @ApiResponse({
     status: 200,
-    type: DashboardResponse,
+    type: DashboardResponseDto,
     description: "Data to serve the dashboard",
   })
   async getDashboard() {

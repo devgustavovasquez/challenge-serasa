@@ -1,6 +1,6 @@
 import { ApiProperty } from "@nestjs/swagger";
 
-export class DashboardResponse {
+export class DashboardResponseDto {
   @ApiProperty({
     example: 12,
     description: "Total number of registered farms",
