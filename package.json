@@ -16,7 +16,8 @@
     "test:dev": "vitest dev",
     "test:cov": "vitest run --coverage",
     "lint": "eslint",
-    "lint:fix": "eslint --fix"
+    "lint:fix": "eslint --fix",
+    "seed": "tsx src/infra/database/prisma/seed.ts"
   },
   "keywords": [],
   "author": "Gustavo Vasquez <gustavovasquez2002@gmail.com>",
